@@ -2,8 +2,8 @@
 
 Forked from https://github.com/kavinunethsara/tiledscreen
 
-Escape key now closes the tiled screen.
-Added options to show/hide the all the buttons, the search bar, the date, and the labels for favourites, all apps, and search.
+Escape key now closes the tiled screen.  
+Added options to show/hide the all the buttons, the search bar, the date, and the labels for favourites, all apps, and search.  
 Also changed the way the search bar works, now pressing any input character will automatically start typing into the search bar; this works when the search bar is hidden, once the user types the search bar shows, and if all characters are deleted it disappears again.
 
 
