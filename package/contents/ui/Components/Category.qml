@@ -36,10 +36,25 @@ Item{
         if (root.hasSearch) {
             if ((event.text.length > 0 && event.text[0].match(/[a-zA-Z0-9 ]/)) || event.key === Qt.Key_Backspace || event.key === Qt.Key_Delete) {
                 if (!search.activeFocus) {
+                    // TextField doesn't have focus - we need to transfer it and handle the key manually
                     search.forceActiveFocus();
+                    
+                    // Handle the character input manually since the TextField won't receive this event
+                    if (event.text.length > 0 && event.text[0].match(/[a-zA-Z0-9 ]/)) {
+                        search.text += event.text;
+                        search.cursorPosition = search.text.length;
+                    } else if (event.key === Qt.Key_Backspace && search.text.length > 0) {
+                        search.text = search.text.substring(0, search.text.length - 1);
+                        search.cursorPosition = search.text.length;
+                    } else if (event.key === Qt.Key_Delete && search.cursorPosition < search.text.length) {
+                        search.text = search.text.substring(0, search.cursorPosition) + 
+                                     search.text.substring(search.cursorPosition + 1);
+                    }
+                    event.accepted = true;
+                } else {
+                    // TextField already has focus - let it handle the event normally
+                    event.accepted = false;
                 }
-                // DON'T manually add text - let the TextField handle it normally
-                event.accepted = false; // Let the TextField receive the event
                 return;
             }
         }
